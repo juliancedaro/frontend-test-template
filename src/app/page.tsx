@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import GameCard from '@/components/GameCard';
+import GameCard from '@/app/components/GameCard';
 import { Game } from '@/lib/types';
 
 export default function Home() {

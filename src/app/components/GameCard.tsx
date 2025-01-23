@@ -1,35 +1,15 @@
 'use client';
 
 import Image from 'next/image';
-import { Game, CartItem } from '@/lib/types';
-import { useState } from 'react';
+import { Game } from '@/lib/types';
+import { useCart } from '@/lib/hooks/useCart';
 
 interface GameCardProps {
   game: Game;
 }
 
 export default function GameCard({ game }: GameCardProps) {
-  const [cart, setCart] = useState<CartItem[]>([]);
-
-  const addToCart = (game: Game) => {
-    setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.id === game.id);
-      let newCart;
-
-      if (existingItem) {
-        newCart = prevCart.filter(item => item.id !== game.id);
-      } else {
-        newCart = [...prevCart, { ...game, quantity: 1 }];
-      }
-
-      localStorage.setItem('cart', JSON.stringify(newCart));
-      return newCart;
-    });
-  };
-
-  const isInCart = (gameId: string) => {
-    return cart.some(item => item.id === gameId);
-  };
+  const { addToCart, isInCart } = useCart();
 
   const inCart = isInCart(game.id);
 

@@ -2,10 +2,11 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { CartItem } from '../lib/types';
+import { CartItem } from '@/lib/types';
+import { useCart } from '@/lib/hooks/useCart';
 
 export default function Header() {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const { cart } = useCart();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-header-background">
@@ -14,7 +15,7 @@ export default function Header() {
           GamerShop
         </Link>
         <Link href="/cart" className="relative">
-          <div className="text-black">CARRITO</div>
+          <div className="flex min-h-screen items-center justify-center bg-white" />
         </Link>
       </div>
     </header>

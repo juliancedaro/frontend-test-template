@@ -2,23 +2,11 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { CartItem, Game } from '../../lib/types';
-import { useState } from 'react';
+import { CartItem, Game } from '@/lib/types';
+import { useCart } from '@/lib/hooks/useCart';
 
 export default function CartPage() {
-  const [cart, setCart] = useState<CartItem[]>([]);
-
-  const removeFromCart = (gameId: string) => {
-    setCart(prevCart => {
-      const newCart = prevCart.filter(item => item.id !== gameId);
-      localStorage.setItem('cart', JSON.stringify(newCart));
-      return newCart;
-    });
-  };
-
-  const getTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
-  };
+  const { cart, removeFromCart, getTotal } = useCart();
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -55,11 +43,6 @@ export default function CartPage() {
                       <div>
                         <h3 className="font-semibold">{item.name}</h3>
                         <p className="text-sm text-gray-500">{item.genre}</p>
-                        {item.isNew && (
-                          <span className="mt-1 inline-block rounded bg-blue-600 px-2 py-1 text-xs text-white">
-                            New
-                          </span>
-                        )}
                       </div>
                       <button
                         onClick={() => removeFromCart(item.id)}
