@@ -36,15 +36,15 @@ export default function GameCard({ game }: GameCardProps) {
   return (
     <div className="rounded-lg border bg-white p-4 shadow-sm">
       <div className="relative aspect-[16/9] overflow-hidden rounded-md">
-        {/* <Image
-          src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/42700/capsule_616x353.jpg?t=1654809667"
+        <Image
+          src={game.image}
           alt={game.name}
           fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        /> */}
+        />
         {game.isNew && (
-          <span className="absolute left-2 top-2 rounded bg-blue-600 px-2 py-1 text-xs text-white">
+          <span className="absolute left-2 top-2 rounded bg-new-icon-background px-2 py-1 text-xs text-custom-card-text">
             New
           </span>
         )}
@@ -58,7 +58,7 @@ export default function GameCard({ game }: GameCardProps) {
         <div className="mt-4 flex items-center justify-between">
           <button
             onClick={() => addToCart(game)}
-            className={`rounded px-1 py-2 text-sm text-custom-card-text border-black border`}
+            className={`rounded px-1 py-2 text-sm text-custom-card-text border-black border w-full`}
           >
             {inCart ? 'Remove' : 'Add to Cart'}
           </button>

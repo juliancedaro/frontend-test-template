@@ -15,6 +15,7 @@ const config: Config = {
       },
       colors: {
         'custom-card-text': "#3B3B3B",
+        'new-icon-background': "#F5F5F4",
         'header-background': "#EEEEEE",
         'header-text': "#585660",
         'footer-background': "#404040"
