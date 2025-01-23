@@ -14,11 +14,12 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        'custom-card-text': "#3B3B3B",
+        'custom-text-color': "#3B3B3B",
         'new-icon-background': "#F5F5F4",
         'header-background': "#EEEEEE",
         'header-text': "#585660",
-        'footer-background': "#404040"
+        'footer-background': "#404040",
+        'disabled-button': "#585660"
       }
     },
   },
