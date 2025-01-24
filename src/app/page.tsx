@@ -40,8 +40,6 @@ export default function Home() {
     setGames([]);
     setLoading(true);
     fetchGames();
-    url.searchParams.set('page', (1).toString());
-    window.history.pushState({}, '', url);
   }, [genre, fetchGames]);
 
   useEffect(() => {
