@@ -1,21 +1,20 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
-import { CartItem } from '@/lib/types';
 import { useCart } from '@/lib/hooks/useCart';
+import { CartIcon } from '@/assets/cart';
 
 export default function Header() {
   const { cart } = useCart();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-header-background">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link href="/" className="text-xl font-700 text-header-text">
+    <header className="sticky top-0 z-50 w-full border-b bg-header-background h-14">
+      <div className="container mx-auto flex h-14 items-center justify-between px-4">
+        <Link href="/" className="text-l font-700 text-special-gray">
           GamerShop
         </Link>
-        <Link href="/cart" className="relative">
-          <div className="flex min-h-screen items-center justify-center bg-white" />
+        <Link href="/cart">
+          <CartIcon />
         </Link>
       </div>
     </header>

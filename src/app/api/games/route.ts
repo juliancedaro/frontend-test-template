@@ -8,12 +8,14 @@ export async function GET(request: Request) {
   let page = parseInt(searchParams.get("page") ?? "1");
 
   let games = allGames;
+  let filteredGames = 0;
 
   if (genre) {
     games = games.filter(
       (game) => game.genre.toLowerCase() === genre.toLowerCase()
     );
   }
+  filteredGames = games.length;
 
   if (page < 1 || isNaN(page)) page = 1;
 
@@ -24,7 +26,7 @@ export async function GET(request: Request) {
   const toIndex = page * ITEMS_PER_PAGE;
   games = games.slice(fromIndex, toIndex);
 
-  const totalPages = Math.ceil(allGames.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filteredGames / ITEMS_PER_PAGE);
   const currentPage = page;
 
   return Response.json({ games, availableFilters, totalPages, currentPage });

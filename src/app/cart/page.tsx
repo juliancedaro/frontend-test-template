@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { CartItem, Game } from '@/lib/types';
+import { Game } from '@/lib/types';
 import { useCart } from '@/lib/hooks/useCart';
+import GameCart from '@/app/components/CartCard';
 
 export default function CartPage() {
   const { cart, removeFromCart, getTotal } = useCart();
@@ -16,9 +17,10 @@ export default function CartPage() {
       >
         ← Back to Catalog
       </Link>
-
-      <h1 className="mb-8 text-2xl font-bold">Your Cart</h1>
-
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold">Your Cart</h1>
+        <span className="text-sm text-custom-text-color">{cart.length} items</span>
+      </div>
       <div className="grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2">
           {cart.length === 0 ? (
@@ -26,46 +28,17 @@ export default function CartPage() {
           ) : (
             <div className="space-y-4">
               {cart.map((item: Game) => (
-                <div
-                  key={item.id}
-                  className="flex gap-4 rounded-lg border bg-white p-4"
-                >
-                  <div className="relative h-24 w-24 flex-shrink-0">
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      fill
-                      className="rounded-md object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="font-semibold">{item.name}</h3>
-                        <p className="text-sm text-gray-500">{item.genre}</p>
-                      </div>
-                      <button
-                        onClick={() => removeFromCart(item.id)}
-                        className="text-gray-400 hover:text-gray-600"
-                      >
-                        X
-                      </button>
-                    </div>
-                    <p className="mt-2 text-sm text-gray-600">
-                      {item.description}
-                    </p>
-                    <div className="mt-auto pt-2 text-right font-semibold">
-                      ${item.price}
-                    </div>
-                  </div>
-                </div>
+                <GameCart game={item} key={`${item.id}-${item.name}`} />
               ))}
             </div>
           )}
         </div>
 
         <div className="rounded-lg border bg-white p-6">
-          <h2 className="mb-4 text-lg text-custom-text-color">Order Summary</h2>
+          <div className="mb-8">
+            <h2 className="text-l text-custom-text-color">Order Summary</h2>
+            <span className="text-sm text-custom-text-color">{cart.length} items</span>
+          </div>
           <div className="space-y-2">
             {cart.map((item: Game) => (
               <div key={item.id} className="flex justify-between text-sm">
@@ -80,7 +53,7 @@ export default function CartPage() {
               <span className="text-custom-text-color">${getTotal()}</span>
             </div>
           </div>
-          <button disabled={!cart.length} className="mt-6 w-full rounded bg-gray-800 py-2 text-white hover:bg-gray-700 disabled:bg-disabled-button">
+          <button disabled={!cart.length} className="mt-6 w-full rounded bg-special-gray py-2 text-white hover:bg-gray-700 disabled:bg-special-gray">
             Checkout
           </button>
         </div>

@@ -17,10 +17,13 @@ const config: Config = {
         'custom-text-color': "#3B3B3B",
         'new-icon-background': "#F5F5F4",
         'header-background': "#EEEEEE",
-        'header-text': "#585660",
+        'special-gray': "#585660",
         'footer-background': "#404040",
-        'disabled-button': "#585660"
-      }
+        'cart-card-border-color': "#8F8F8F"
+      },
+      borderWidth: {
+        '0.5': '0.5px',
+      },
     },
   },
   plugins: [],
