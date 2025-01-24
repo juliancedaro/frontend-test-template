@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import GameCard from '@/app/components/GameCard';
 import { Game } from '@/lib/types';
@@ -58,6 +58,21 @@ export default function Home() {
     );
   }
 
+  const onChangeSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    const url = new URL(window.location.href);
+    if (e.target.value) {
+      url.searchParams.set('genre', e.target.value);
+    } else {
+      url.searchParams.delete('genre');
+    }
+    url.searchParams.delete('page');
+    window.history.pushState({}, '', url);
+    setPage(1);
+    setGames([]);
+    setLoading(true);
+    fetchGames();
+  }
+
   return (
     <>
       <div className="container mx-auto px-4 py-8">
@@ -70,20 +85,7 @@ export default function Home() {
             <select
               className="rounded-md border p-2"
               value={genre || ''}
-              onChange={(e) => {
-                const url = new URL(window.location.href);
-                if (e.target.value) {
-                  url.searchParams.set('genre', e.target.value);
-                } else {
-                  url.searchParams.delete('genre');
-                }
-                url.searchParams.delete('page');
-                window.history.pushState({}, '', url);
-                setPage(1);
-                setGames([]);
-                setLoading(true);
-                fetchGames();
-              }}
+              onChange={(e) => onChangeSelect(e)}
             >
               <option value="">All</option>
               {filters &&
