@@ -1,13 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { Game } from '@/lib/types';
-import { useCart } from '@/lib/hooks/useCart';
+import { useCart } from '@/lib/context/CartContext';
 import GameCart from '@/app/components/CartCard';
 
 export default function CartPage() {
-  const { cart, removeFromCart, getTotal } = useCart();
+  const { cart, getTotal } = useCart();
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -33,7 +32,7 @@ export default function CartPage() {
             </div>
           )}
         </div>
-        <div className="flex flex-col md: mt-3">
+        <div className="flex flex-col md: mt-3 w-full lg:w-96 md:m-4">
           <div className="rounded-lg border bg-white p-6">
             <div className="mb-8">
               <h2 className="text-l text-custom-text-color">Order Summary</h2>
@@ -50,7 +49,7 @@ export default function CartPage() {
             <div className="mt-4 border-t pt-4">
               <div className="flex justify-between font-semibold">
                 <span className="text-custom-text-color">Order Total</span>
-                <span className="text-custom-text-color">${getTotal()}</span>
+                <span className="text-custom-text-color">${getTotal().toFixed(2)}</span>
               </div>
             </div>
           </div>

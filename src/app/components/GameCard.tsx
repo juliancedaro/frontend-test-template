@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { Game } from '@/lib/types';
-import { useCart } from '@/lib/hooks/useCart';
+import { useCart } from '@/lib/context/CartContext';
 
 interface GameCardProps {
   game: Game;

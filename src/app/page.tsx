@@ -35,7 +35,6 @@ export default function Home() {
   }, [genre, page]);
 
   useEffect(() => {
-    const url = new URL(window.location.href);
     setPage(1);
     setGames([]);
     setLoading(true);

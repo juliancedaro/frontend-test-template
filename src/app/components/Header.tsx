@@ -1,12 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { useCart } from '@/lib/hooks/useCart';
 import { CartIcon } from '@/assets/cart';
 
 export default function Header() {
-  const { cart } = useCart();
-
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-header-background h-14">
       <div className="container mx-auto flex h-14 items-center justify-between px-4">
