@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import GameCard from '@/app/components/GameCard';
@@ -34,12 +35,16 @@ export default function Home() {
     }
   }, [genre, page]);
 
-  useEffect(() => {
+  const fetchCall = useCallback(() => {
     setPage(1);
     setGames([]);
     setLoading(true);
     fetchGames();
-  }, [genre, fetchGames]);
+  }, [fetchGames]);
+
+  useEffect(() => {
+    fetchCall();
+  }, [genre, fetchCall]);
 
   useEffect(() => {
     if (page > 1) {
@@ -64,10 +69,14 @@ export default function Home() {
     }
     url.searchParams.delete('page');
     window.history.pushState({}, '', url);
-    setPage(1);
-    setGames([]);
-    setLoading(true);
-    fetchGames();
+    fetchCall();
+  }
+
+  const seeMore = () => {
+    const url = new URL(window.location.href);
+    setPage((p) => p + 1);
+    url.searchParams.set('page', (page + 1).toString());
+    window.history.pushState({}, '', url);
   }
 
   return (
@@ -98,22 +107,17 @@ export default function Home() {
             <GameCard key={game.id} game={game} />
           ))}
         </div>
+        {currentPage !== totalPages && (
+          <div className="mt-5 flex justify-start">
+            <button
+              onClick={seeMore}
+              className="rounded bg-special-gray px-6 py-2 text-white hover:bg-gray-700"
+            >
+              See More
+            </button>
+          </div>
+        )}
       </div>
-      {currentPage !== totalPages && (
-        <div className="mb-3 pl-6 flex justify-start">
-          <button
-            onClick={(e) => {
-              const url = new URL(window.location.href);
-              setPage((p) => p + 1);
-              url.searchParams.set('page', (page + 1).toString());
-              window.history.pushState({}, '', url);
-            }}
-            className="rounded bg-special-gray px-6 py-2 text-white hover:bg-gray-700"
-          >
-            See More
-          </button>
-        </div>
-      )}
     </>
   );
 }

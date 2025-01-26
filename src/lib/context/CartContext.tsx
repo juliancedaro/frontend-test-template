@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Game, CartItem } from '@/lib/types';
 
 interface CartContextProps {
@@ -15,7 +15,7 @@ const CartContext = createContext<CartContextProps | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
-
+  console.log('cart', cart);
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
@@ -69,3 +69,5 @@ export const useCart = () => {
   }
   return context;
 };
+
+export { CartContext };

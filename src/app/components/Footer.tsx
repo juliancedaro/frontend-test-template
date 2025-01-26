@@ -1,3 +1,6 @@
+'use client';
+
+import React from 'react';
 import { ApplyDigital } from '@/assets/ApplyDigital';
 import Link from 'next/link';
 

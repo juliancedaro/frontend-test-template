@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
 import { CartIcon } from '@/assets/cart';
 
@@ -10,7 +11,7 @@ export default function Header() {
         <Link href="/" className="text-l font-700 text-special-gray">
           GamerShop
         </Link>
-        <Link href="/cart">
+        <Link href="/cart" data-testid="cart-link">
           <CartIcon />
         </Link>
       </div>

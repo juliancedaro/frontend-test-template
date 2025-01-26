@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Image from 'next/image';
 import { Game } from '@/lib/types';
 import { useCart } from '@/lib/context/CartContext';
