@@ -14,12 +14,13 @@ export default function CartPage() {
       <Link
         href="/"
         className="mb-6 inline-block text-custom-text-color"
+        data-testid="back-to-catalog"
       >
         ← Back to Catalog
       </Link>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold">Your Cart</h1>
-        <span className="text-sm text-custom-text-color">{cart.length} items</span>
+        <h1 className="text-2xl font-bold" data-testid="your-cart-message">Your Cart</h1>
+        <span className="text-sm text-custom-text-color" data-testid="cart-amount-items">{cart.length} items</span>
       </div>
       <div className="flex flex-col justify-between sm:flex-row">
         <div className="lg:col-span-2">
@@ -36,8 +37,8 @@ export default function CartPage() {
         <div className="flex flex-col md: mt-3 w-full lg:w-96 md:m-4">
           <div className="rounded-lg border bg-white p-6">
             <div className="mb-8">
-              <h2 className="text-l text-custom-text-color">Order Summary</h2>
-              <span className="text-sm text-custom-text-color">{cart.length} items</span>
+              <h2 className="text-l text-custom-text-color" data-testid="order-summary">Order Summary</h2>
+              <span className="text-sm text-custom-text-color" data-testid="summary-amount-items">{cart.length} items</span>
             </div>
             <div className="space-y-2">
               {cart.map((item: Game) => (
@@ -49,8 +50,8 @@ export default function CartPage() {
             </div>
             <div className="mt-4 border-t pt-4">
               <div className="flex justify-between font-semibold">
-                <span className="text-custom-text-color">Order Total</span>
-                <span className="text-custom-text-color">${getTotal().toFixed(2)}</span>
+                <span className="text-custom-text-color" data-testid="order-total">Order Total</span>
+                <span className="text-custom-text-color" data-testid="total-price">${getTotal().toFixed(2)}</span>
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from './test-utils';
+import { render, screen } from '@/utils/test-utils';
 import Footer from '@/app/components/Footer';
 
 test('renders Footer component', () => {

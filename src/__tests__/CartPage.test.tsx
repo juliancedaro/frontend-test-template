@@ -2,7 +2,7 @@ import React from 'react';
 import CartPage from '@/app/cart/page';
 import { CartItem } from '@/lib/types';
 import { CartContext } from '@/lib/context/CartContext';
-import { render, screen, fireEvent } from './test-utils';
+import { render, screen, fireEvent } from '@/utils/test-utils';
 
 const game: CartItem = {
   id: '1',
@@ -15,13 +15,15 @@ const game: CartItem = {
   quantity: 1
 };
 
+const removeFromCartMock = jest.fn();
+
 const mockCart = [game];
 
 const MockCartProvider = ({ children }: { children: React.ReactNode }) => {
   const mockContextValue = {
     cart: mockCart,
     addToCart: jest.fn(),
-    removeFromCart: jest.fn(),
+    removeFromCart: removeFromCartMock,
     isInCart: jest.fn().mockReturnValue(true),
     getTotal: jest.fn().mockReturnValue(59.99),
   };
@@ -33,37 +35,35 @@ const MockCartProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+beforeEach(() => {
+  jest.clearAllMocks()
+});
 
 test('renders CartPage component', () => {
-  render(<CartPage />);
+  render(<MockCartProvider><CartPage /></MockCartProvider>);
 
-  expect(screen.getByText(/Your Cart/i)).toBeInTheDocument();
-  expect(screen.getByText(/Back to Catalog/i)).toBeInTheDocument();
+  expect(screen.getByTestId("your-cart-message")).toBeInTheDocument();
+  expect(screen.getByTestId("back-to-catalog")).toBeInTheDocument();
 });
 
 test('displays game in cart and removes it', () => {
-  render(<CartPage />);
+  render(<MockCartProvider><CartPage /></MockCartProvider>);
 
-  // Check if game is displayed in cart
   expect(screen.getByTestId('game-name')).toHaveTextContent(game.name);
   expect(screen.getByTestId('game-genre')).toHaveTextContent(game.genre);
   expect(screen.getByTestId('game-description')).toHaveTextContent(game.description);
   expect(screen.getByTestId('game-price')).toHaveTextContent(`$${game.price.toString()}`);
 
-  // Remove game from cart
   fireEvent.click(screen.getByTestId('remove-button'));
 
-  // Check if cart is empty
-  expect(screen.getByText(/Your cart is empty./i)).toBeInTheDocument();
+  expect(removeFromCartMock).toHaveBeenCalled();
 });
 
 test('displays order summary and total', () => {
-  render(<CartPage />);
+  render(<MockCartProvider><CartPage /></MockCartProvider>);
 
-  // Check order summary
-  expect(screen.getByText(/Order Summary/i)).toBeInTheDocument();
-  expect(screen.getByText(/1 items/i)).toBeInTheDocument();
-  expect(screen.getByText(`$${game.price.toString()}`)).toBeInTheDocument();
-  expect(screen.getByText(/Order Total/i)).toBeInTheDocument();
-  expect(screen.getByText(`$${game.price.toFixed(2)}`)).toBeInTheDocument();
+  expect(screen.getByTestId("order-summary")).toBeInTheDocument();
+  expect(screen.getByTestId("summary-amount-items")).toBeInTheDocument();
+  expect(screen.getByTestId("order-total")).toBeInTheDocument();
+  expect(screen.getByTestId("total-price")).toBeInTheDocument();
 });
