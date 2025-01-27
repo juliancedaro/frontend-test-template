@@ -22,7 +22,7 @@ export default function Home() {
         `/api/games?genre=${genre || ''}&page=${page}`
       );
       const data = await response.json();
-
+      console.log(data);
       setGames(prev => (page === 1 ? data.games : [...prev, ...data.games]));
       setTotalPages(data.totalPages);
       setCurrentPage(data.currentPage);
@@ -44,7 +44,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchCall();
-  }, [genre, fetchCall]);
+  }, [genre]);
 
   useEffect(() => {
     if (page > 1) {
@@ -110,7 +110,7 @@ export default function Home() {
         {currentPage !== totalPages && (
           <div className="mt-5 flex justify-start">
             <button
-              onClick={seeMore}
+              onClick={() => seeMore()}
               className="rounded bg-special-gray px-6 py-2 text-white hover:bg-gray-700"
             >
               See More
